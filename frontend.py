@@ -2,7 +2,7 @@
 import streamlit as st
 import requests
 
-#BACKEND_URL = "http://localhost:8000/ask"
+BACKEND_URL = "http://localhost:8000/ask"
 
 st.set_page_config(page_title="AI Mental Health Therapist", layout="wide")
 st.title("🧠 SafeSpace – AI Mental Health Therapist")
@@ -17,14 +17,14 @@ user_input = st.chat_input("What's on your mind today?")
 if user_input:
     # Append user message
     st.session_state.chat_history.append({"role": "user", "content": user_input})
-
-    fixed_dummy_response="I'm here for you. Can you tell me more about what you're feeling?"and
-    st.session_state.chat_history.append({"role": "assistant", "content": fixed_dummy_response})  
     
-    # AI Agent exists here
-    response = requests.post(BACKEND_URL, json={"message": user_input})
+     # AI Agent exists here
+    fixed_dummy_response_from_backend = requests.post(BACKEND_URL, json={"message": user_input}) # this connects with backend --> main.py 
 
-    st.session_state.chat_history.append({"role": "assistant", "content": f'{response.json()["response"]} WITH TOOL: [{response.json()["tool_called"]}]'})
+   
+    st.session_state.chat_history.append({"role": "assistant", "content": fixed_dummy_response_from_backend.json()})  
+    
+   
 
 
 # Step3: Show response from backend

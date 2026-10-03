@@ -1,4 +1,4 @@
-# main entry point
+# main entry point of backend
 
 # Step1: Setup FastAPI backend
 from fastapi import FastAPI
@@ -11,5 +11,10 @@ class Query(BaseModel):
     message: str
 
 @app.post("/ask")
-async def ask():
-    #inputs = {"messages": [("system", SYSTEM_PROMPT), ("user", query.message)]}
+async def ask(query:Query):
+    #response=ai_agent(query)
+    response = "this is the response from backend"
+    return response
+
+if __name__=="__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
